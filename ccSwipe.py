@@ -15,7 +15,7 @@ import gccommons
 
 # Tunable hyperparameters
 numTrials = 100
-segments = 5
+segments = 3
 # Optional definitions for pbsGridWalker that depend on the number of segments
 pointsPerJob = 20
 maxJobs = 8
@@ -67,7 +67,7 @@ def processResults(experiment):
 	import os
 	import numpy as np
 	import pbsGridWalker.tools.plotutils as tplt
-#	tfs.makeDirCarefully('results', maxBackups=100)
+	tfs.makeDirCarefully('results', maxBackups=100)
 
 	# We'll take a look at some parameters vs relative mutation rate at several stages (generation counts) along the evolutionary process
 

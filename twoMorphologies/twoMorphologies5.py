@@ -63,7 +63,7 @@ def runComputationAtPoint(worker, params):
 	geneFifo = tfs.makeUniqueFifo('.', 'genes')
 	evalFifo = tfs.makeUniqueFifo('.', 'evals')
 
-	clientProc = worker.spawnProcess(['/users/a/b/abernats/arrowbots.olderr/arrowbotEvaluator', geneFifo, evalFifo])
+	clientProc = worker.spawnProcess([mmr.arrowbotsExecutable, geneFifo, evalFifo])
 	if not worker.runCommand([mmr.evsExecutable, evalFifo, geneFifo, str(serverParams['randomSeed']), 'evs.ini']):
 		return False
 	worker.killProcess(clientProc)

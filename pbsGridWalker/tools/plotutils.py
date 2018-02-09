@@ -192,7 +192,7 @@ def plotComputationVariableAgainstParameter(experiment, variableName, variableGe
 		vars = variableGenerator(gridPoint)
 		with open(dataFileName(gridPoint), 'a') as file:
 			file.write(' '.join(map(str, vars)) + '\n')
-#	experiment.executeAtEveryGridPointDir(generateTimeSlices)
+	experiment.executeAtEveryGridPointDir(generateTimeSlices)
 
 	os.chdir('results')
 

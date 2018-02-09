@@ -67,7 +67,7 @@ def processResults(experiment):
 	import os
 	import numpy as np
 	import pbsGridWalker.tools.plotutils as tplt
-#	tfs.makeDirCarefully('results', maxBackups=100)
+	tfs.makeDirCarefully('results', maxBackups=100)
 
 	# We'll take a look at some parameters vs relative mutation rate at several stages (generation counts) along the evolutionary process
 
