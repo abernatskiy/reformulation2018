@@ -1,0 +1,24 @@
+Communicator which uses unix pipes for data exchange between a server and a client. 
+
+The constructor of this communicator takes at most two parameters: name of the input 
+pipe and name of the output pipe. Default values are '/tmp/evaluations.pipe' and 
+'/tmp/individuals.pipe', correspondingly.
+
+With this communicator the client-server system operates in the following way:
+1. Server is started (by running main.py).
+2. Server writes the strings describing the individuals into the output pipe. 
+   The strings are separated by newlines. For details on the format of each string,
+   see the documentation of the class Individual implementation currently used.
+3. Client reads the individuals-describing strings from the output pipe.
+4. Client evaluates the individuals described by the strings.
+5. Client writes the evaluations (scores) into the input pipe. For the details on 
+   the format of the scores, see the documentation of the class Individual 
+   implementation currently used.
+6. Server reads the evaluations from the input pipe.
+7. When more evaluations are needed to perform selection, steps 2-6 are repeated.
+
+If the pipes do not exist in the filesystem, they will be created by the server 
+when it starts.
+
+The order in which the evaluations are written into the input pipe is important. 
+Take care not to add any stray newlines.

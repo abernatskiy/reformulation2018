@@ -1,0 +1,13 @@
+Global requirements:
+- traceable ancestry (reruns acceptable if they are not long)
+
+Runs:
+
+I. Distribution of convergence curves for multiple morphologies: 64 morphologies for three segments, 1331 morphology for ten segments - have to come up with sampling
+ * Make sure to check the optimal morphology
+II. Gigantic convergence vs. parameters:
+ * number of segments: 3, (5), 10
+ * timescales ratio: 0.2, 0.5, 0.8
+ * morphological part of the search: parallel hill climber, random search (for timescale ratio 0.2)
+ * controller part of the search: me, clune, parallel hill climber
+

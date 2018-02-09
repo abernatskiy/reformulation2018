@@ -1,0 +1,104 @@
+EVS developer manual
+====================
+
+Evolutionary server (EVS) is an application that performs all phenotype-agnostic
+(i.e., not requiring any knowledge of phenotype) operations involved in genetic
+algorithms. The heart of the app is an Evolver object that performs generation,
+evaluation, reproduction and selection of genotypes. Each genotype is
+represented by an Individual object. Communicator objects are used to send
+genotypes to other programs and retrieve evaluations.
+
+All three classes must have exactly the names listed above (Evolver, Individual,
+Communicator). To distinguish between different implementations of the same
+class, each implementation should be put in its own module. For example, an
+Evolver implementing a simple roulette-wheel selection GA is defined at the
+module evolvers.proportionalEvolver. For each of the three groups of classes,
+a base class is provided:
+
+- BaseEvolver at evolvers.baseEvolver is a base class for Evolvers;
+- BaseIndividual at individuals.baseIndividual is a base class for Individuals;
+- BaseCommunicator .. you should see the pattern.
+
+Base classes do not enforce any interfaces, but are used to share the code
+useful in many, if not all of the, implementations of core classes. A little
+bit of info on the base classes functionality will be provided below; for
+details, refer to their docs.
+
+TODO At this point in the project's history, there might be some undocumented
+     functionality in the base classes. Refer to the code.
+
+I Evolver
+
+Evolver classes must define
+
+- A constructor which takes a Communicator, parameters dictionary understandable
+  by Individual class's constructor, parameters dictionary containing the
+  parameters of the Evolver itself (including the 'indivClass' field, containing
+  the class to be used to spawn Individuals) and a self-explanatory keyword
+  argument initialPopulationFileName. It is recommended that you call the base
+  class's constructor first thing:
+    super(Evolver, self).__init__(communicator, indivParams, evolParams, initialPopulationFileName = initialPopulationFileName)
+	After that call params will be saved into the object, generation count will be
+  initialized to 0 and the population will be initialized to be empty unless the
+  intial populaiton file is specified.
+
+- updatePopulation() method which performs all the actions
+  required upon the generation increment. Again, it is recommended that the
+  function from the base class constructor is called first:
+    super(Evolver, self).updatePopulation()
+
+II Individual
+
+Individual classes might have varying interfaces depending on the needs of a
+particular Evolver in which they are used. They should inherit from
+individuals.baseIndividual. For the simplest roulette-wheel selection
+algorithm (implemented at evolvers.proportionalEvolver) it suffices to define
+
+- A constructor which takes a parameters dictionary and generates a random
+  Individual. It may exploit the code of the base class:
+    super(Individual, self).__init__(params)
+
+- setEvaluation() method which takes a string evaluation and writes
+  appropriate attributes into the object. It is defined in baseIndividual to
+  interpret the string evaluation as a floating point fitness and stores it in
+  an attribute called score. Feel free to redefine.
+
+- mutate() method which introduces random changes into the Individual.
+
+Mutation operators are typically designed with a particular GA in mind. For
+example, roulette wheel selection works OK when mutation has a chance to leave
+Individual's genome unchanged, while for another popular algorithm AFPO it is
+preferrable that any mutation makes some change in the genome.
+
+TODO At this point in the project's history, no Evolvers use crossover and
+     consequently no Individual class defines any means to do it. It should
+     be done with a recombine(Individual other) method eventually.
+
+III Communicator
+
+Communicator classes are used to evaluate Individuals by means of external
+modules. An external module might implement a complicated genotype-to-phenotype
+map, use a physics engine to simulate the behavior of the Individual in a
+virtual world or even be a human who reads the Individual's genomes, uses them
+to perform some experiments and feeds back the results. In general, such modules
+may (and should) perform any non-phenotype-agnostic computations on Individuals.
+This is always possible because the evaluation may be anything representable by
+a string.
+
+These classes must have only one method:
+
+- evaluate(), which takes a list of Individuals, obtains string evaluations
+  however it does and and calls setEvaluation() on each Individuals with the
+  string evalautions as arguments.
+
+Note that evaluate() must be able to work with lists of Individuals. This
+allows it to parallelize the computation by distributing the evaluations among
+multiple identical external modules within the Communicator itself.
+
+Currently, the BaseCommunicator class assumes that the act of evaluating can be
+divided into sending the genomes out (write(), takes a list of Individuals) and
+receiving the evaluations (read(), returns a list of string evaluations). if
+your Communicator does not fit into this pattern, simply do not inherit from
+BaseCommunicator.
+
+--------------------------------------------------------------------------------

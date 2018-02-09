@@ -1,0 +1,101 @@
+I. Motivation
+
+Evolutionary computation is a method for solving complex optimization problems numerically. In this 
+method (or rather, family of methods), a computer
+1) generates a set of solution candidates (henceforth individuals, see note 1)
+2) evaluates the value of function to be optimized for every individual in this set
+3) selects the best individuals and performs some operations (e.g. crossover and mutation) on them 
+   to produce new individuals.
+This loop is repeated this process until a satisfactory solution is found.
+
+Individuals can be represented by many different data structures, but all of them can be compressed 
+into a binary or (equivalently) ascii string due to their digital nature. During the individuals 
+evaluation the algorithm must compute a function of this string, in general case also a string. 
+This computation typically is very time-consuming compared to all other actions the algorithm 
+performs. It also tends to use a lot of messy code, which makes writing the evolutionary codes 
+themselves unjustifiably hard.
+
+To combat this problem I separate codes performing the evolution itself and the evaluation of 
+individuals in two different applications -- the client and the server. Initially, the server 
+supplies strings representing individuals. The client reads them, computes evaluations and feeds 
+them back to the server. The server utilizes the evaluations to select best individuals, "breeds" 
+them and feeds the new (individual representing) strings to the client. The process repeats until 
+a satisfactory solution is found.
+
+For example, consider an evolution of simulated mobile robots in some environment, with an 
+objective of maximizing the distance traveled over some time interval. Consider a robot with 
+fixed morphology, for which we only optimize connections between sensors and motors. An 
+individual here can be represented as a matrix, typically including up to several hundred 
+floating-point numbers. One example of representing such an individual as a string can be 
+obtained by printing all these numbers in their scientific form, using a particular order of rows 
+and columns and the separating spaces. An evaluation of an individual in this problem may 
+be a single number -- the distance traveled from the origin. This number also can be printed into 
+a string.
+
+The server's job is to
+ - generate new individuals
+ - keep a population of individuals
+ - convert individuals into strings
+ - send the strings to the client
+ - get the evaluation strings back and comprehend them
+ - select best individuals based on this comprehension
+ - make new individuals from the best ones by means of mutation and crossover
+ - repeat
+
+The client's job is to
+ - get the individual-describing strings from the server
+ - evaluate the individuals
+ - convert evaluations to strings
+ - send strings to the server
+
+Turns out, this setup has a bunch of advantages over the usual monolithic architecture. 
+Aside for the separation of code I mentioned before, we also get:
+
+1. Full independence of the evolutionary algorithm from the evaluation part. This allows us to 
+   use the same evolutionary algorithm with different kind of evaluations, including those 
+   which are not made by some code. Those can include physical measurements from some real 
+   world experiments or subjective human evaluations.
+
+2. (consequence from 1) In case when evaluations are made by some code, this code may use a 
+   different language than the server's code. This is good, because conditions under which 
+   those two codes are written call for different types of languages.
+     Evolutionary algorithms themselves do not use a lot of computational time while being 
+   relatively complex. They involve hand-written high-level manipulations with data 
+   structures, which often can be (and in practive will always be) tweaked to achieve the 
+   best performance on a particular task. High-level languages like Python and Lisp 
+   are much more convenient in these kind of environments than their lower-level 
+   alternatives such as C and C-like C++.
+     Clients' evaluations are typically time-intensive. The time is used to either to 
+   simulate individuals or to perform embodied runs. In the former case they often contain 
+   complex codes, but the complexity is usually contained within whichever "physics library" 
+   the simulator uses. "Physical libraries" usually are heavy frameworks written in some 
+   dialect of C/C++. There are multiple reasons why one would want to stick to C/C++ while 
+   working with these libraries: performance considerations, minimization of the amount of 
+   code which uses library but is not written by library developers (important for 
+   distinguishing your bugs from their bugs) and non-volatility of the library-related 
+   code (the code is written once and debugged as you use it - no rewrites).
+     If the client performs embodied runs for the evaluation, then it is likely to be a 
+   software-hardware system, not a single program. The part of that complex which 
+   communicates with the server -- client per se -- is likely to be conceptually simple, 
+   yet even more volatile then the server. Python is a good language for these kind of 
+   tasks, but because of the difference in volatility it is still good to have a 
+   separation between the server and the client.
+
+3. It is easy to make the system perform individual evaluations in parallel in this kind 
+   of setup. To do that, it is sufficient to divide a batch of strings server produces at 
+   the end of each generation into smaller batches and distribute those across the clients, 
+   then gather evaluation strings, concatenate them in a right way and send that to a 
+   server. This kind of functionality is easy to implement by abstracting the communicator 
+   inside the server.
+
+Notes:
+
+1. The word "individual" is used here instead on "genotype" only because it is easier to think of 
+genotypes in terms of typical phenotypes they produce. I.e., if one genotype encodes three-legged 
+robots, and the other one encodes two-legged ones, it is easier to think about them in terms of 
+the number of legs, not the actual genes and sequences. Similarly, "individuals" in my code 
+contain some data which is, strictly speaking, not a part of the genotype. Examples may include 
+a unique id number, a score remembered from the evaluation of this individual in the past and the 
+
+
+

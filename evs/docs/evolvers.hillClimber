@@ -1,0 +1,11 @@
+Parallel Hill Climber - evolutionary algorithm which, 
+at every step, adds a mutated copy of its population to 
+the original population and shrinks the new population to 
+the former size by preserving fittest individuals.
+
+Required parameters:
+indivClass           Class of the evolutionary individuals.
+populationSize       Size of the population.
+
+This evolver can request an evaluation of the same 
+individual multiple times.

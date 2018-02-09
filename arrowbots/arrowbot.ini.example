@@ -1,0 +1,11 @@
+; Example arrowbot.ini - contains all supported parameters and their default values
+
+[arrowbot parameters]
+segments = 2
+sensorAttachmentType = identity ; Can be "identity" (sensors attached to their corresponding segments), "null" (all sensors attached to the fixed segment) or "variable" (attachment data is supplied to the program through input)
+
+[simulation parameters]
+simulationTime = 1.0
+timeStep = 0.1
+integrateError = false
+writeTrajectories = false

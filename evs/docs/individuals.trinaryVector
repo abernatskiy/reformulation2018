@@ -1,0 +1,49 @@
+Class for evolutionary individuals described by a constant-length 
+vector of numbers taken from {-1,0,1}.
+
+Required parameters:
+length                Length of the vector.
+mutationProbability   For every field of the vector, 
+                      probability that mutation occurs upon 
+                      mutate() call. Keep it low, 0.02 is a 
+                      good value.
+
+Individual's string representation format:
+<ID> <field0> <field1> ... <fieldLength>
+Here, <ID> is a unique (within each evolutionary run) positive integer 
+assigned to the individual by Evolver, <fieldN> is the value of the 
+Nth field of the vector.
+
+Evaluation string format:
+<ID> <score>
+Here, <score> is a numerical evaluation of the individual (interpreted 
+as a floating point number).
+
+####################################
+
+Recommended format for the clients which interpret the fields an 
+synaptic weights of an artificial neural network (input neurons are 
+denoted as i0..iN, hidden neurons as h0..hM and outputs as o0..oK):
+
+# of field			connection
+0								i0->h0
+1								i0->h1
+...
+M								i0->hM
+M+1							i1->h0
+...
+2*M							i1->hM
+...
+N*M							iN->hM
+N*M+1						h1->h1 (recurrent, if present)
+...
+N*M+M*M					hM->hM (recurrent, if present)
+N*M+M*M+1				h1->o1
+...
+N*M+M*M+M*K			hM->oK
+
+Thus, a network with one hidden layer of neurons requires a vector 
+of M*(N+M+K) values (M*(N+K) if there are no recurrent connections).
+
+
+

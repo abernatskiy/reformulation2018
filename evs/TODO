@@ -1,0 +1,6 @@
+- caching
+- check hillClimber for implementation correctness
+- DEAP/inspyred support
+- make textFile communicator stable against stray newlines
+- add setting summary output
+- enable global generation counter by default

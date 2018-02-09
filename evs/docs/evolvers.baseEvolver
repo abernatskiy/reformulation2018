@@ -1,0 +1,87 @@
+1. Commmon options supported by all Evolvers inheriting from baseEvolver.Evolver:
+
+a. Periodic IO
+
+Enable with:
+
+logPopulation
+logBestIndividual
+printBestIndividual
+printParetoFront
+printPopulation
+printGeneration
+backup
+
+Control period with:
+
+<option>+'Period', e.g. logPopulationPeriod
+
+b. Evolution parameters
+
+genStopAfter
+trackAncestry
+randomSeed
+initialPopulationFile
+
+Note 1: If trackAncestry is enabled, the ancestry will be kept in the Individual
+objects of self.population. As such, the Individual class must support ancestry
+tracking. Dedicated output of ancestry is not supported: keep it by enabling the
+backup option.
+
+Note 2: randomSeed option overrides the command line supplied random seed.
+
+2. Conventional options supported in many daughter classes
+
+a. Periodic IO
+
+logParetoFront = no
+logParetoFrontPeriod = 1
+logParetoFrontKeepAllGenerations = no
+- controls the execution of self.logParetoFront(yourParetoFront)
+
+printParetoFront = no
+printParetoFrontPeriod = 1
+- controls the execution of self.printParetoFront(yourParetoFront)
+
+b. Evolution parameters
+
+populationSize
+
+3. API
+
+a. Constructor
+
+It is generally a good idea to call parent's constructor first thing in the
+constructor:
+
+super(Evolver, self).__init__(communicator, indivParams, evolParams, initialPopulationFileName=initialPopulationFileName)
+
+Every Evolver must initialize self.population in its constructor. Use 
+self.params['indivClass'] to access the Individual class chosen in the config 
+file. If initialPopulationFile option is used the population will be 
+constructed from the lines of the supplied file during the call to the 
+parent's constructor.
+
+b. self.updatePopulation()
+
+Function performing population updates. Commonly used utility subroutines:
+
+self.communicator.evaluate(somePopulation)
+self.paramExists(paramName)
+self.paramIsEnabled(paramName)
+self.paramIsNonzero(paramName)
+self.setParamDefault(paramName, defaultValue)
+
+Subroutines for multiobjective evolvers:
+
+self.findParetoFront(func0, func1, breakTiesByIDs=True, population=None)
+self.findStochasticalParetoFront(func0, func1)
+self.printParetoFront(paretoFront, objname, objfunc)
+self.logParetoFront(paretoFront)
+self.paretoWarning(paretoFront) # at 75% of the fixed population size
+
+Uncommon subroutines:
+
+self.logSubpopulation(subpopulation, prefix, inioption=None, genPostfix=True)
+self.noisifyAllScores()
+self.populationIsValid() # size matches self.params['populationSize'] + everything in self.population is of class self.params['indivClass']

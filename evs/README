@@ -1,0 +1,26 @@
+EVS - EVolutionary Server:
+An application for separating evaluation from evolution
+
+===========================================================
+
+See DESCRIPTION for comments on the program's architecture.
+
+main.py is both the configuration file and the executable. 
+To configure the server, see comments in main.py. To run 
+the server on Linux or Mac, open a terminal, change working 
+directory to where this file is (e.g., by doing 
+"cd ~/evs-master") and type
+
+$ python main.py
+
+Notes:
+ - on some Linux distros you might want to use the 
+   "python2" command instead of "python";
+ - the only way to stop the program in its current version 
+   is to press Ctrl+C in the terminal;
+ - the program (main.py) automatically creates two pipes 
+   named individuals.pipe and evaluations.pipe in its 
+   working directory. You can delete or keep those, it 
+   won't affect the program's execution.
+
+All questions should be directed to abernats@uvm.edu.

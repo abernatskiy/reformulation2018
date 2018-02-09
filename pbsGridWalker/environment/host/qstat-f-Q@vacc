@@ -1,0 +1,159 @@
+Queue: ibq
+    queue_type = Execution
+    max_queuable = 100
+    max_user_queuable = 90
+    total_jobs = 0
+    state_count = Transit:0 Queued:0 Held:0 Waiting:0 Running:0 Exiting:0 Comp
+	lete:0 
+    acl_host_enable = False
+    resources_max.cput = 10000:00:00
+    resources_max.pmem = 64gb
+    resources_max.pvmem = 128gb
+    resources_max.walltime = 30:00:00
+    resources_min.cput = 00:00:01
+    resources_min.walltime = 00:00:01
+    resources_default.cput = 10000:00:00
+    resources_default.pmem = 1600mb
+    resources_default.pvmem = 1600mb
+    resources_default.walltime = 00:30:00
+    mtime = 1433184766
+    resources_assigned.nodect = 0
+    enabled = True
+    started = True
+
+Queue: l1wkq
+    queue_type = Execution
+    max_user_queuable = 128
+    total_jobs = 4
+    state_count = Transit:0 Queued:4 Held:0 Waiting:0 Running:0 Exiting:0 Comp
+	lete:0 
+    resources_max.pmem = 30gb
+    resources_max.pvmem = 31gb
+    resources_max.walltime = 168:00:00
+    resources_default.pmem = 800mb
+    resources_default.pvmem = 1005mb
+    resources_default.walltime = 12:00:00
+    mtime = 1428076477
+    resources_assigned.nodect = 0
+    enabled = True
+    started = True
+
+Queue: sharedq
+    queue_type = Execution
+    total_jobs = 0
+    state_count = Transit:0 Queued:0 Held:0 Waiting:0 Running:0 Exiting:0 Comp
+	lete:0 
+    acl_host_enable = False
+    resources_max.walltime = 30:00:00
+    resources_min.mem = 2gb
+    resources_default.walltime = 00:30:00
+    mtime = 1433184773
+    resources_assigned.mem = 0b
+    resources_assigned.nodect = 0
+    resources_assigned.vmem = 0b
+    enabled = True
+    started = True
+
+Queue: testq
+    queue_type = Execution
+    max_user_queuable = 16
+    total_jobs = 0
+    state_count = Transit:0 Queued:0 Held:0 Waiting:0 Running:0 Exiting:0 Comp
+	lete:0 
+    acl_host_enable = False
+    resources_max.pmem = 4gb
+    resources_max.pvmem = 8gb
+    resources_max.walltime = 02:00:00
+    resources_min.cput = 00:00:01
+    resources_default.walltime = 00:10:00
+    mtime = 1428076477
+    resources_assigned.nodect = 0
+    enabled = True
+    started = True
+
+Queue: systemq
+    queue_type = Execution
+    max_user_queuable = 200
+    total_jobs = 0
+    state_count = Transit:0 Queued:0 Held:0 Waiting:0 Running:0 Exiting:0 Comp
+	lete:0 
+    acl_user_enable = True
+    acl_users = jtl,+mga
+    resources_max.walltime = 12:00:00
+    mtime = 1428076477
+    enabled = True
+    started = True
+
+Queue: etherq
+    queue_type = Execution
+    total_jobs = 0
+    state_count = Transit:0 Queued:0 Held:0 Waiting:0 Running:0 Exiting:0 Comp
+	lete:0 
+    acl_host_enable = False
+    resources_max.pmem = 12gb
+    resources_max.pvmem = 16gb
+    resources_default.cput = 10000:00:00
+    resources_default.pmem = 800mb
+    resources_default.pvmem = 1005mb
+    resources_default.walltime = 00:30:00
+    mtime = 1428076477
+    resources_assigned.nodect = 0
+    enabled = True
+    started = True
+
+Queue: workq
+    queue_type = Execution
+    max_queuable = 5000
+    max_user_queuable = 1000
+    total_jobs = 2131
+    state_count = Transit:0 Queued:1799 Held:11 Waiting:0 Running:321 Exiting:
+	0 Complete:0 
+    acl_host_enable = False
+    resources_max.cput = 10000:00:00
+    resources_max.pmem = 125gb
+    resources_max.pvmem = 256gb
+    resources_max.walltime = 30:00:00
+    resources_min.cput = 00:00:01
+    resources_min.walltime = 00:00:01
+    resources_default.cput = 10000:00:00
+    resources_default.pmem = 800mb
+    resources_default.pvmem = 1gb
+    resources_default.walltime = 00:30:00
+    mtime = 1433184764
+    resources_assigned.mem = 0b
+    resources_assigned.nodect = 323
+    resources_assigned.vmem = 0b
+    enabled = True
+    started = True
+
+Queue: shortq
+    queue_type = Execution
+    max_user_queuable = 200
+    total_jobs = 66
+    state_count = Transit:0 Queued:40 Held:0 Waiting:0 Running:26 Exiting:0 Co
+	mplete:0 
+    resources_max.walltime = 03:00:00
+    mtime = 1433184768
+    resources_assigned.mem = 0b
+    resources_assigned.nodect = 26
+    resources_assigned.vmem = 0b
+    enabled = True
+    started = True
+
+Queue: poolmemq
+    queue_type = Execution
+    max_user_queuable = 128
+    total_jobs = 3
+    state_count = Transit:0 Queued:3 Held:0 Waiting:0 Running:0 Exiting:0 Comp
+	lete:0 
+    resources_max.walltime = 30:00:00
+    resources_default.mem = 1gb
+    resources_default.vmem = 1200mb
+    resources_default.walltime = 00:30:00
+    mtime = 1428076477
+    resources_assigned.mem = 0b
+    resources_assigned.nodect = 0
+    resources_assigned.vmem = 0b
+    enabled = True
+    started = True
+

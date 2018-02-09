@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# CLIENT_DIR=$HOME/braitenberg/bullet-2.82-r2704/Demos/Box2dDemo
+CLIENT_DIR=$HOME/bullet/Demos/Box2dDemo
+EVS_DIR=$HOME/evs

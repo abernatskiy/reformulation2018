@@ -1,0 +1,14 @@
+Averaging AFPO - evolutionary algorithm 
+similar to AFPO (see docs/evolvers.afpo), but using evaluations 
+averaged over a sample of size sampleSize instead of a single 
+evaluation to select most fit individuals. This is useful when 
+dealing with noisy clients.
+
+Required parameters:
+indivClass           Class of the evolutionary individuals.
+populationSize       Size of the population.
+sampleSize           Size of the sample of evaluations which is 
+                     requested for each individual.
+
+This evolver requests an evaluation of each individual exactly 
+sampleSize times.

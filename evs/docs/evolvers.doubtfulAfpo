@@ -1,0 +1,15 @@
+Doubtful AFPO - evolutionary algorithm similar to AFPO 
+(see docs/evolvers.afpo), but using evaluations 
+averaged over a sample. The size of the sample is initially 
+one, but if the individual survives, it is reevaluated and the 
+average is updated. This might seem like a good idea for 
+dealing with noisy clients, but it is actually useless 
+because occasionally a bad-performing individual gets lucky 
+and overturns the entire evaluation.
+
+Required parameters:
+indivClass           Class of the evolutionary individuals.
+populationSize       Size of the population.
+
+This evolver may requests an evaluation of some individuals 
+multiple times.

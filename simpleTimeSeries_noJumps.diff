@@ -1,0 +1,18 @@
+@@ -194,7 +194,7 @@ def plotErrorTSs(experiment, prefixFun):                                                                                                                                  
+        ylimit = None                                                                                                                                                                         
+                                                                                                                                                                                              
+        title = None                                                                                                                                                                          
+-       dataDict = {gridFileNamePrefix(p): -1.*np.loadtxt(fitnessFileName(p)) for p in nonRSGrid}                                                                                             
++       dataDict = {gridFileNamePrefix(p): -1.*np.loadtxt(fitnessFileName(p)) for p in nonRSGrid if p['compositeClass0'] != 'integerVectorRandomJumps'}
+ 
+        # Plotting averages
+        yscale = 'lin'
+@@ -245,7 +245,7 @@ def plotMinMMMDistTSs(experiment, prefixFun):
+        ylimit = None
+ 
+        title = None
+-       dataDict = {gridFileNamePrefix(p): np.loadtxt(minMMMDistFileName(p)) for p in nonRSGrid}
++       dataDict = {gridFileNamePrefix(p): np.loadtxt(minMMMDistFileName(p)) for p in nonRSGrid if p['compositeClass0'] != 'integerVectorRandomJumps'}
+ 
+        # Plotting averages in linear time scales on y
+        yscale = 'lin'

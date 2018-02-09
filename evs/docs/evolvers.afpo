@@ -1,0 +1,19 @@
+AFPO (Age-Fitness Pareto Optimization) - evolutionary algorithm 
+which uses age of individuals to maintain diversity. The age is 
+defined as the number of generations an individual has spent 
+within the population. Less fit individual is considered to be
+as valuable as the more fit one if it is younger. For details 
+see M.Schmidt, H.Lipson "Age-Fitness Pareto Optimization", 
+Genetic Programming Theory and Practice VIII, 
+Genetic and Evolutionary Computation Volume 8, 2011, pp 129-146 
+(doi 10.1007/978-1-4419-7747-2_8).
+
+Required parameters:
+indivClass           Class of the evolutionary individuals.
+populationSize       Size of the population.
+
+Non-required parameters:
+printParetoFront     Whether to print or not to print the 
+                     Pareto front
+
+This evolver never requests evaluation of an individual twice.

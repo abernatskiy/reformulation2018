@@ -1,0 +1,62 @@
+To set up the server to use text files to communicate with the client, 
+perform the following steps:
+
+1. Uncomment the following line in main.py:
+
+   from communicators.textFile import Communicator
+
+   Comment all other lines containing "import Communicator".
+
+2. Go to the line where the Communicator object is constructed 
+   (comm = Communicator(...)) and pass your desired text file 
+   names as the constructor arguments. For example, with 
+   
+   comm = Communicator('eval.txt', 'indiv.txt')
+
+   the server will use a text file called eval.txt (located in the 
+   current directory) for evaluations input (from a client) and a 
+   text file called indiv.txt (same location) to output the 
+   individuals to be evaluated to the client.
+
+   By default (e.g., when specifying comm = Communicator()) the 
+   server will use individuals.txt and evaluations.txt.
+
+3. Read the lines describing the individuals from the output file 
+   ('indiv.txt' in our example). The format of the lines is 
+   described in docs/individuals.trinaryVector and 
+   docs/individuals.floatVector.
+
+   If individuals.trinaryVector is used with length of 10 and the 
+   population size of 3, the contents of the output file may look 
+   like this:
+
+   0 1 1 0 -1 0 -1 0 1 0 0
+   1 0 1 1 1 0 0 0 1 0 1
+   2 -1 0 0 0 0 1 1 1 0 1
+
+4. Erase all contents of the output file. Make sure it its size is 
+   0 bytes. This will indicate to the server that the job of the 
+   individuals' evaluation has been taken by the client.
+
+5. Produce evaluations and write them into the input file 
+   (eval.txt in the example above). The format of the 
+   evaluation lines is described in docs/individuals.trinaryVector 
+   and docs/individuals.floatVector. For the example above these 
+   lines may look like this:
+
+   0 102123.4
+   1 43444.5
+   2 12324423.9
+
+   Take care not to add any stray newlines and to write the 
+   evaluations in the same order in which the individuals were 
+   provided in the output file. The program will exit with an 
+   error if you make a mistake here.
+
+   (I hope I'll fix this in the future versions.)
+
+6. Repeat steps 2 through 5 until the best solution shown in the 
+   server's command line seems satisfactory.
+
+You may want to read docs/communicators.textFile for a better 
+grasp on what is happening here.

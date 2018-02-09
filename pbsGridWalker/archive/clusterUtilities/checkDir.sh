@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo Running grep PBS ...
+grep PBS ./myjob*
+
+echo Running grep Traceback ...
+grep Traceback ./myjob*
+
+echo Running line count check in logs ... 
+for dir in *; do if [ -d $dir ]; then echo $dir ; cd $dir ; for file in *.log ; do cat $file | wc -l; done | uniq ; cd ..;  fi ; done
+
+echo Running line count check in Q logs ... 
+for dir in *; do if [ -d $dir ]; then echo $dir ; cd $dir ; for file in *.log.q ; do cat $file | wc -l; done | uniq ; cd ..;  fi ; done

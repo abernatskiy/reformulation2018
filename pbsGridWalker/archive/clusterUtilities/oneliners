@@ -1,0 +1,5 @@
+# Removes all unfinished jobs from the JOBID dir
+JOBID=5730408; IFS=$'\n'; for i in `grep PBS ./* | sed -e "s/.*${JOBID}-\([01234567890]*\):.*/\1/"`; do rm ./complex_clune_random_expl0.5_insdel1.0/*`~/evscripts/randSeedByNumber.py $i`.log*; done
+
+# Resubmit all failed jobs, now requesting 8 hours of wall time time for each
+JOBID=5730408; IFS=$'\n'; for i in `grep PBS ./* | sed -e "s/.*${JOBID}-\([01234567890]*\):.*/\1/"`; do qsub -q workq -l walltime=08:00:00 -t $i /users/a/b/abernats/evscripts/sparsityExplorerOne.sh; done

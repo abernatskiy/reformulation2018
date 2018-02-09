@@ -1,0 +1,33 @@
+Communicator which uses text files for data exchange between a server and a client. 
+
+The constructor of this communicator takes up to two parameters: name of the input 
+file and name of the output file. Default values are 'evaluations.txt' and 
+'individuals.txt', correspondingly.
+
+With this communicator the client-server system operates in the following way:
+1. Server is started (by running main.py).
+2. Server erases the content of the input file, making it empty.
+3. Server writes the strings describing the individuals into the output file. 
+   The typical format of the strings is <individual's ID> <individual's genome>. 
+   The strings are separated by newlines. Check the details on the strings' 
+   format in the documentation of the class Individual implementation 
+   currently used.
+4. Client reads the individuals-describing strings from the output file.
+5. Client erases the contents of the output file, making it empty. This is a 
+   signal which the server interprets as "Evaluation job taken, see the input 
+   file for the results".
+6. Client evaluates the individuals described by the strings.
+7. Client writes the evaluations (scores) into the input file. The typical 
+   format of the strings is <individual's ID> <individual's score>. The 
+   strings are separated by the newlines. Check the details the evaluation 
+   strings' format in the documentation of the class Individual implementation 
+   currently used.
+8. Server reads the evaluations from the input file.
+9. When more evaluations are needed to perform selection, steps 2-8 are repeated.
+
+If the files do not exist in the filesystem, they will be created by the server 
+when it starts. If they do exists and are nonempty, they will be overwritten.
+
+Current version is not very flexible when it comes to the input format. 
+Evaluations must be written into the input file in the order in which they were 
+read from the output file. Take care not to add any stray newlines.
