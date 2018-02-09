@@ -36,6 +36,8 @@ This should produce nine folders with the same names as the scripts that produce
 
 If something goes wrong, it is a good idea to check if paths to the system binaries are configured correctly:
 
-> $ nano pbsGridWalker/environment/os/gentoo.py
+```bash
+$ nano pbsGridWalker/environment/os/gentoo.py
+```
 
 Vector files for hand-drawn illustrations and some useful scripts for combining the panels are located at ./figures.
